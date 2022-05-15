@@ -5,7 +5,6 @@
 </head>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-alert("test");
 $(document).ready(function() {
 	$("#listBtn").on("click", function() {
 		$.get("/boards", function(data) {
@@ -15,7 +14,7 @@ $(document).ready(function() {
 	});
 	
 	$("#readBtn").on("click", function() {
-		var boardno = $("#boardno");
+		var boardno = $("#boardNo");
 		var boardnoval = boardno.val();
 		console.log(boardnoval);
 		$.get("/boards/" + boardnoval, function(data) {
@@ -56,7 +55,7 @@ $(document).ready(function() {
 
 
 	$("#deleteBtn").on("click", function() {
-		var boardno = $("#boardno");
+		var boardno = $("#boardNo");
 		var boardnoval = boardno.val();
 		console.log(boardnoval);
 		$.ajax({
@@ -70,7 +69,7 @@ $(document).ready(function() {
 	});
 
 	$("#modifyBtn").on("click", function() {
-		var boardno = $("#boardno");
+		var boardno = $("#boardNo");
 		var title = $("#title");
 		var content = $("#content");
 		var writer = $("#writer");
