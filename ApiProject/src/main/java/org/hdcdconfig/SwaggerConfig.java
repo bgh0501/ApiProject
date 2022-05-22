@@ -20,7 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
-	
+	@Bean
+	public UiConfiguration uiConfig() {
+		return UiConfiguration.DEFAULT;
+	}
+
 	private ApiInfo metadata() {
 		return new ApiInfoBuilder()
 				.title("spring boot")
@@ -34,16 +38,22 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.groupName("basic")
 				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.ant("/boards.*"))
+				.apis(RequestHandlerSelectors.basePackage("org..hdcd.controller"))
+				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(metadata());
 	}
+
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
+    
 		super.addResourceHandlers(registry);
 	}
 	
