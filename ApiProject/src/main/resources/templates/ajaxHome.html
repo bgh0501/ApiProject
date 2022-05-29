@@ -5,10 +5,12 @@
 </head>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
 	$("#listBtn").on("click", function() {
 		$.get("/boards", function(data) {
 			console.log(data);
+			
 			alert(JSON.stringify(data));
 		});
 	});
@@ -16,9 +18,12 @@ $(document).ready(function() {
 	$("#readBtn").on("click", function() {
 		var boardno = $("#boardNo");
 		var boardnoval = boardno.val();
+		
 		console.log(boardnoval);
+		
 		$.get("/boards/" + boardnoval, function(data) {
 			console.log(data);
+		
 			alert(JSON.stringify(data));
 		});
 	});
@@ -27,22 +32,24 @@ $(document).ready(function() {
 		var title = $("#title");
 		var content = $("#content");
 		var writer = $("#writer");
-		var titleval = title.val();
-		var contentval = content.val();
-		var writerval = writer.val();
+		var titleVal = title.val();
+		var contentVal = content.val();
+		var writerVal = writer.val();
+		
 		var boardobject = {
-			title : titleval,
-			content : contentval,
-			writer : writerval
+			title : titleVal,
+			content : contentVal,
+			writer : writerVal
 		};
 
 		$.ajax({
-			type : "post",
+			type : "POST",
 			url : "/boards",
 			data : json.stringify(boardobject),
 			contenttype : "application/json; charset=utf-8",
 			success : function(result) {
 				console.log("result: " + result);
+				
 				alert(result);
 			},
 			error : function(request, status, error) {
@@ -56,37 +63,42 @@ $(document).ready(function() {
 
 	$("#deleteBtn").on("click", function() {
 		var boardno = $("#boardNo");
-		var boardnoval = boardno.val();
+		var boardnoVal = boardno.val();
+		
 		console.log(boardnoval);
+		
 		$.ajax({
-			type : "delete",
-			url : "/boards/" + boardnoval,
+			type : "DELETE",
+			url : "/boards/" + boardnoVal,
 			success : function(result) {
 				console.log("result: " + result);
+				
 				alert(result);
 			}
 		});
 	});
 
-	$("#modifyBtn").on("click", function() {
+	$("#putBtn").on("click", function() {
 		var boardno = $("#boardNo");
 		var title = $("#title");
 		var content = $("#content");
 		var writer = $("#writer");
-		var boardnoval = boardno.val();
-		var titleval = title.val();
-		var contentval = content.val();
-		var writerval = writer.val();
+		
+		var boardNoVal = boardno.val();
+		var titleVal = title.val();
+		var contentVal = content.val();
+		var writerVal = writer.val();
+		
 		var boardobject = {
-				boardno : boardnoval,
-				title : titleval,
-				content : contentval,
-				writer : writerval
+				boardno : boardNoVal,
+				title : titleVal,
+				content : contentVal,
+				writer : writerVal
 			};
 
 			$.ajax({
-				type : "put",
-				url : "/boards/" + boardnoval,
+				type : "PUT",
+				url : "/boards/" + boardNoVal,
 				data : json.stringify(boardobject),
 				contenttype : "application/json; charset=utf-8",
 				success : function(result) {
@@ -95,6 +107,37 @@ $(document).ready(function() {
 				}
 			});
 		});
+	});
+	
+	$("#patchBtn").on("click",function() {
+		var boardno = $("#boardNo");
+		var title = $("#title");
+		var content = $("#content");
+		var writer = $("#writer");
+		
+		var boardNoVal = boardno.val();
+		var titleVal = title.val();
+		var contentVal = content.val();
+		var writerVal = writer.val();
+		
+		var boardobject = {
+				boardno : boardNoVal,
+				title : titleVal,
+				content : contentVal,
+				writer : writerVal
+			};
+		
+		$.ajax({
+			type : "PATCH",
+			url : "/boards/" + boardnoVal,
+			data : json.stringify(boardobject),
+			contenttype : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				alert(result);
+			}
+		});
+		
 	});
 	</script>
 
@@ -111,7 +154,7 @@ $(document).ready(function() {
 		<button id="readBtn">READ</button>
 		<button id="registerBtn">REGISTER</button>
 		<button id="deleteBtn">DELETE</button>
-		<button id="modifyBtn">MODIFY</button>
+		<button id="putBtn">MODIFY</button>
 	</div>
 </body>
 </html>
