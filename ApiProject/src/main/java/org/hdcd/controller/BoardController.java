@@ -81,4 +81,11 @@ public class BoardController {
 		
 		return entity;
 	}
+	@RequestMapping(value="/{boardNo}", method=RequestMethod.PUT, headers="X-HTTP-Method-Override=PUT")
+	public ResponseEntity<String> modifyByHeader(@PathVariable("boardNo") int boardNo, @RequestBody Board board) { 
+		logger.info("modifyByHeader");
+		ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		
+		return entity;
+	}
 }

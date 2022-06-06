@@ -100,14 +100,13 @@ $(document).ready(function() {
 				type : "PUT",
 				url : "/boards/" + boardNoVal,
 				data : JSON.stringify(boardobject),
-				contentType : "application/json; charset=utf-8",
+				contentType : "application/json; charset=UTF-8",
 				success : function(result) {
 					console.log("result: " + result);
 					alert(result);
 				}
 			});
 		});
-	});
 	
 	$("#patchBtn").on("click",function() {
 		var boardno = $("#boardNo");
@@ -139,6 +138,41 @@ $(document).ready(function() {
 		});
 		
 	});
+	
+	$("#putHeaederBtn").on("click", function() {
+		var boardNo = $("#boardNo");
+		var title = $("#title");
+		var content = $("#content");
+		var writer = $("#writer");
+		
+		var boardNoVal = boardNo.val();
+		var titleVal = title.val();
+		var contentVal = content.val();
+		var writerVal = writer.val();
+		
+		var boardObject = {
+			boardNo : boardNoVal,
+			title : titleVal,
+			content : contentVal,
+			writer : writerVal
+		}; 
+		
+		$.ajax({
+			type : "PUT",
+			url : "/boards/" + boardNoVal,
+			headers : {
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify(boardObject),
+			contentType : "application/json; charset=UTF-8",
+			success : function(result) {
+				console.log("result:" + result);
+				
+				alert(result);
+			}
+		});
+	});
+});
 	</script>
 
 <body>
@@ -155,6 +189,7 @@ $(document).ready(function() {
 		<button id="registerBtn">REGISTER</button>
 		<button id="deleteBtn">DELETE</button>
 		<button id="putBtn">MODIFY</button>
+		<button id="putHeaederBtn">MODIFY(put with header)</button>
 	</div>
 </body>
 </html>
