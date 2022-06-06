@@ -45,8 +45,8 @@ $(document).ready(function() {
 		$.ajax({
 			type : "POST",
 			url : "/boards",
-			data : json.stringify(boardobject),
-			contenttype : "application/json; charset=utf-8",
+			data : JSON.stringify(boardobject),
+			contentType : "application/json; charset=utf-8",
 			success : function(result) {
 				console.log("result: " + result);
 				
@@ -65,7 +65,7 @@ $(document).ready(function() {
 		var boardno = $("#boardNo");
 		var boardnoVal = boardno.val();
 		
-		console.log(boardnoval);
+		console.log(boardnoVal);
 		
 		$.ajax({
 			type : "DELETE",
@@ -99,8 +99,8 @@ $(document).ready(function() {
 			$.ajax({
 				type : "PUT",
 				url : "/boards/" + boardNoVal,
-				data : json.stringify(boardobject),
-				contenttype : "application/json; charset=utf-8",
+				data : JSON.stringify(boardobject),
+				contentType : "application/json; charset=utf-8",
 				success : function(result) {
 					console.log("result: " + result);
 					alert(result);
