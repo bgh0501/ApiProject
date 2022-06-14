@@ -64,7 +64,7 @@ public class BoardController {
 		return entity; 
 	}
 	
-	@RequestMapping(value = "/{baordNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{boardNo}", method = RequestMethod.POST)
 	public ResponseEntity<String> modify(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
 		logger.info("modify");
 		
@@ -72,6 +72,29 @@ public class BoardController {
 		
 		return entity;
 	}
+	
+	//consumes 속성값에 "applicaiotn/json" 미디어 타입을 지정한다.
+	@RequestMapping(value="/{boardNo}", method=RequestMethod.PUT, consumes="application/json")
+	public ResponseEntity<String> modifyByJson(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
+		logger.info("modifyByJson");
+		
+		ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	//consumes 속성값에 "application/xml" 미디어 타입을 지정한다.
+	@RequestMapping(value="/{boardNo}", method=RequestMethod.PUT, consumes="application/xml")
+	public ResponseEntity<String> modifyByXml(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
+		logger.info("modifyBy XML boardNo" + boardNo);
+		
+		logger.info("modifyByXml board" + board);
+		
+		ResponseEntity<String> entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		
+		return entity;
+	}
+	
 	
 	@RequestMapping(value = "/{boardNo}", method = RequestMethod.PATCH)
 	public ResponseEntity<String> modifyByPatch(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
