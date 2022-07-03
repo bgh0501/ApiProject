@@ -324,11 +324,11 @@ $(document).ready(function() {
 function xmlToString(xmlData) {
 	var xmlString;
 	
-	if(window.activeXObject) {
+	if(window.ActiveXObject) {
 		xmlString = xmlData.xml;
 	} else {
 		//수정필요 
-		xmlString = (new XML.Serializer()).serializeToString(xmlData);
+		xmlString = (new XMLSerializer()).serializeToString(xmlData);
 	}
 	
 	return xmlString;
