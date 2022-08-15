@@ -36,7 +36,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public ResponseEntity<Member> read() {
-		logger.info("register");
+		logger.info("read");
 		
 		Member member = new Member();
 		member.setUserId("hongkd");
@@ -47,10 +47,10 @@ public class MemberController {
 		int year = 1999;
 		int month = 5;
 		int date =20;
-		cal.set(year, month -1, date);
+		cal.set(year, month-1, date);
 		
 		member.setDateOfBirth(cal.getTime());
-		
+		logger.info(member.toString());
 		return new ResponseEntity<Member>(member, HttpStatus.OK);
 	}
 	

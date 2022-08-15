@@ -12,7 +12,7 @@ public class Member {
 	private int coin;
 	private List<Card> cardList;
 	
-	@JsonFormat(pattern="yyyy-MM-dd")
+	//@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
 	
 	private Address address;

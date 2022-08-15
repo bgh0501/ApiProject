@@ -15,71 +15,62 @@ $(document).ready(function(){
 		var userIdVal = userId.val();
 		var passwordVal = password.val();
 		
+		var dateOfBirthVal = "2019/09/08";
+		
 		var userObject = {
 			userId : userIdVal,
-			password : passwordVal
+			password : passwordVal,
+			dateOfBirth : dateOfBirthVal
 		};
 		
 		$.ajax({
 			type : "POST",
-			url : "/register01",
+			url : "/register",
 			data : JSON.stringify(userObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function(result) {
 				console.log("result:" + result);
 				
 				alert(result);
+			},
+			error : function(xhr,status, error) {
+				alert("code:" + xhr.status + "\n"
+						+ "message:" + xhr.responseText + "\n"
+						+ "error:" + error);
 			}
 		});
 	});
 	
-	$("#registerBtn0101").on("click",function(){
+	
+	$("#registerBtn02").on("click",function(){
+				
 		var userId = $("#userId");
 		var password = $("#password");
 		
 		var userIdVal = userId.val();
 		var passwordVal = password.val();
+		var dateOfBirthVal = "20190908";
 		
 		var userObject = {
 			userId : userIdVal,
-			password : passwordVal
+			password : passwordVal,
+			dateOfBirth : dateOfBirthVal
 		};
 		
 		$.ajax({
 			type : "POST",
-			url : "/register01/hongkd",
+			url : "/register",
 			data : JSON.stringify(userObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function(result) {
 				console.log("result:" + result);
 				
 				alert(result);
-			}
-		});
-	});
-	
-	$("#registerBtn02").on("click",function(){
-				
-		var userObjectArray = [
-			{
-			userId : "name01",
-			password : "pw01"
 			},
-			{
-			userId : "name02",
-			password: "pw02"
-			}
-		];
-		
-		$.ajax({
-			type : "POST",
-			url : "/register02",
-			data : JSON.stringify(userObjectArray),
-			contentType : "application/json; charset=UTF-8",
-			success : function(result) {
-				console.log("result:" + result);
-				
-				alert(result);
+			error : function(xhr,status, error) {
+				alert("code:" + xhr.status + "\n"
+						+ "message:" + xhr.responseText + "\n"
+						+ "error:" + error);
 			}
 		});
 	});
@@ -90,60 +81,46 @@ $(document).ready(function(){
 		
 		var userIdVal = userId.val();
 		var passwordVal = password.val();
+		var dateOfBirthVal = "2019-09-08";
 		
 		var userObject = {
 			userId : userIdVal,
 			password : passwordVal,
-			address : {
-				postCode : "010908",
-				location : "seoul"
-			}
+			dateOfBirth : dateOfBirthVal
 		};
 		
 		$.ajax({
 			type : "POST",
-			url : "/register03",
+			url : "/register",
 			data : JSON.stringify(userObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function(result) {
 				console.log("result:" + result);
 				
 				alert(result);
+			},
+			error : function(xhr,status, error) {
+				alert("code:" + xhr.status + "\n"
+						+ "message:" + xhr.responseText + "\n"
+						+ "error:" + error);
 			}
 		});
 	});
 	
 	$("#registerBtn04").on("click",function(){
-		var userId = $("#userId");
-		var password = $("#password");
-		
-		var userIdVal = userId.val();
-		var passwordVal = password.val();
-		
-		var userObject = {
-			userId : userIdVal,
-			password : passwordVal,
-			cardList : [
-				{
-					no : "23456",
-					validMonth : "2019-09-08"
-				},
-				{
-					no : "12342",
-					validMonth : "2020-07-05"
-				}
-			]
-		};
-		
 		$.ajax({
-			type : "POST",
-			url : "/register04",
-			data : JSON.stringify(userObject),
+			type : "GET",
+			url : "/read",
 			contentType : "application/json; charset=UTF-8",
-			success : function(result) {
-				console.log("result:" + result);
+			success : function(data){
+				console.log(data);
 				
-				alert(result);
+				alert(JSON.stringify(data));
+			},
+			error : function(xhr, status, error) {
+				alert("code:" + xhr.status + "\n"
+						+ "message:" + xhr.responseText + "\n"
+						+ "error:" + error);
 			}
 		});
 	});
@@ -152,14 +129,13 @@ $(document).ready(function(){
 </script>
 
 <body>
-	<hi> Register From</hi>
+	<h1> Register From</h1>
 	<form>
-	userId : <input type="text" name="userId" value="hongkd" id="userId"></br>
+	userId : <input type="text" name="userId" value="hongkd" id="userId"><br>
 	password: <input type="text" name="password" value="1234" id="password"><br>
 	</form>
 	
 	<button id="registerBtn01">registerBtn01</button>
-	<button id="registerBtn0101">registerBtn0101</button>
 	<button id="registerBtn02">registerBtn02</button>
 	<button id="registerBtn03">registerBtn03</button>
 	<button id="registerBtn04">registerBtn04</button>
