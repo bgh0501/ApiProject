@@ -7,15 +7,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$("#registerBtn01").on("click",function(){
-		$.get("/register/hongkd", function(result){
-			console.log("result" + result);
-			
-			alert(result);
-		});
-	});
 	
-	$("#registerBtn02").on("click",function(){
+	$("#registerBtn01").on("click",function(){
 		var userId = $("#userId");
 		var password = $("#password");
 		
@@ -29,8 +22,59 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type : "POST",
-			url : "/register/hongkd/pw01",
+			url : "/register01",
 			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=UTF-8",
+			success : function(result) {
+				console.log("result:" + result);
+				
+				alert(result);
+			}
+		});
+	});
+	
+	$("#registerBtn0101").on("click",function(){
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "POST",
+			url : "/register01/hongkd",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=UTF-8",
+			success : function(result) {
+				console.log("result:" + result);
+				
+				alert(result);
+			}
+		});
+	});
+	
+	$("#registerBtn02").on("click",function(){
+				
+		var userObjectArray = [
+			{
+			userId : "name01",
+			password : "pw01"
+			},
+			{
+			userId : "name02",
+			password: "pw02"
+			}
+		];
+		
+		$.ajax({
+			type : "POST",
+			url : "/register02",
+			data : JSON.stringify(userObjectArray),
 			contentType : "application/json; charset=UTF-8",
 			success : function(result) {
 				console.log("result:" + result);
@@ -49,7 +93,11 @@ $(document).ready(function(){
 		
 		var userObject = {
 			userId : userIdVal,
-			password : passwordVal
+			password : passwordVal,
+			address : {
+				postCode : "010908",
+				location : "seoul"
+			}
 		};
 		
 		$.ajax({
@@ -74,12 +122,22 @@ $(document).ready(function(){
 		
 		var userObject = {
 			userId : userIdVal,
-			password : passwordVal
+			password : passwordVal,
+			cardList : [
+				{
+					no : "23456",
+					validMonth : "2019-09-08"
+				},
+				{
+					no : "12342",
+					validMonth : "2020-07-05"
+				}
+			]
 		};
 		
 		$.ajax({
 			type : "POST",
-			url : "/register04?userId=user01",
+			url : "/register04",
 			data : JSON.stringify(userObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function(result) {
@@ -101,6 +159,7 @@ $(document).ready(function(){
 	</form>
 	
 	<button id="registerBtn01">registerBtn01</button>
+	<button id="registerBtn0101">registerBtn0101</button>
 	<button id="registerBtn02">registerBtn02</button>
 	<button id="registerBtn03">registerBtn03</button>
 	<button id="registerBtn04">registerBtn04</button>

@@ -1,14 +1,16 @@
 package org.hdcd.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Member {
 
-	private String userId;
-	private String password;
+	private String userId = "hongkd";
+	private String password = "1234";
 	private int coin;
+	private List<Card> cardList;
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
@@ -47,14 +49,18 @@ public class Member {
 		this.address = address;
 	}
 
+	public List<Card> getCardList() {
+		return cardList;
+	}
+
+	public void setCardList(List<Card> cardList) {
+		this.cardList = cardList;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [userId=" + userId + ", password=" + password + ", dateOfBirth=" + dateOfBirth + ", getUserId()="
-				+ getUserId() + ", getPassword()=" + getPassword() + ", getDateOfBirth()=" + getDateOfBirth()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "Member [userId=" + userId + ", password=" + password + ", coin=" + coin + ", cardList=" + cardList
+				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + "]";
 	}
-	
-	
 	
 }
