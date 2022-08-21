@@ -13,6 +13,7 @@ public class Member {
 	private List<Card> cardList;
 	
 	//@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyyMMdd")
 	private Date dateOfBirth;
 	
 	private Address address;

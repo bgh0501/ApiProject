@@ -124,6 +124,31 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	
+	//구현 방식 확인 팔요
+	$("#inputFile").on("chang",function(){
+		console.log("change");
+		
+		var files = event.target.files;
+		var file = files[0];
+		console.log("file");
+		
+		var formData = new FileData();
+		formData.append("file",file);
+		
+		$.ajax({
+			type:"POST",
+			url:"/upload",
+			data:formData,
+			dataType:"text",
+			processData:false,
+			contentType:false,
+			success:function(data){
+				alert(data);
+			}
+		});
+	});
 });
 
 </script>
@@ -139,5 +164,12 @@ $(document).ready(function(){
 	<button id="registerBtn02">registerBtn02</button>
 	<button id="registerBtn03">registerBtn03</button>
 	<button id="registerBtn04">registerBtn04</button>
+	
+	<div>
+		<h3>Ajax File Upload</h3>
+		<div>
+			<input type="file" id="inputFile">
+		</div>
+	</div>
 </body>
 </html>

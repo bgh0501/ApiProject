@@ -9,17 +9,32 @@ import org.hdcd.domain.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	//파일업로드 요청 처리
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "txt/plain;charset=UTF-8")
+	public ResponseEntity<String> upload(MultipartFile file) throws Exception {
+		
+		String originalFilename = file.getOriginalFilename();
+		
+		logger.info("orginalName" + originalFilename);
+		
+		ResponseEntity<String> entity = new ResponseEntity<String>("UPLOAD SUCCESS" + originalFilename, HttpStatus.OK);
+		
+		return entity;
+	}
 	
 	//Date타입 처리
 	@RequestMapping(value = "register", method = RequestMethod.POST)
