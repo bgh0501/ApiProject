@@ -3,14 +3,16 @@ package org.hdcd.controller;
 import java.util.Calendar;
 import java.util.List;
 
+
 import org.hdcd.domain.Address;
 import org.hdcd.domain.Card;
 import org.hdcd.domain.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,29 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	
+	//입력값 검증을 할 도메인 클래스에 @Validated를 지정한다.
+	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> register(@Validated @RequestBody Member member, BindingResult result) {
+		logger.info("users");
+		logger.info("result.hasErrors() = " + result.hasErrors());
+		
+		if(result.hasErrors()) {
+			ResponseEntity<String> entity =  new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+			return entity;
+		}
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.password() = " + member.getPassword());
+		logger.info("member.getUserName() = " + member.getUserName());
+		logger.info("member.getEmail() = " + member.getEmail());
+		logger.info("member.getGender() = " + member.getGender());
+		
+		
+		ResponseEntity<String> entity =  new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		return entity;
+	}
 	
 	//파일업로드 요청 처리
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "txt/plain;charset=UTF-8")
@@ -37,17 +62,18 @@ public class MemberController {
 	}
 	
 	//Date타입 처리
-	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody Member member) {
-		logger.info("register");
-		
-		logger.info("userId = " + member.getUserId());
-		logger.info("password = " + member.getPassword());
-		
-		logger.info("member.getDateOfBirth() = " + member.getDateOfBirth());
-		
-		return new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-	}
+	/*
+	 * @RequestMapping(value = "register", method = RequestMethod.POST) public
+	 * ResponseEntity<String> register(@RequestBody Member member) {
+	 * logger.info("register");
+	 * 
+	 * logger.info("userId = " + member.getUserId()); logger.info("password = " +
+	 * member.getPassword());
+	 * 
+	 * logger.info("member.getDateOfBirth() = " + member.getDateOfBirth());
+	 * 
+	 * return new ResponseEntity<String>("SUCCESS",HttpStatus.OK); }
+	 */
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public ResponseEntity<Member> read() {
