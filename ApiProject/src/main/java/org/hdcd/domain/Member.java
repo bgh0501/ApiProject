@@ -15,7 +15,7 @@ public class Member {
 	
 	//입력값 검증 규칙을 지정한다.
 	@NotBlank
-	private String userId;
+	private String userId = "bgh";
 	
 	//여러개의 입력값 검증 규칙을 지정할 수 있다.
 	@NotBlank
@@ -24,7 +24,7 @@ public class Member {
 	
 	private String email;
 	private String gender;
-	private String password;
+	private String password = "1234";
 	private int coin;
 	private List<Card> cardList;
 	

@@ -1,15 +1,19 @@
 package org.hdcd.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 
-
+import org.apache.commons.io.IOUtils;
 import org.hdcd.domain.Address;
 import org.hdcd.domain.Card;
 import org.hdcd.domain.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -20,10 +24,68 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.models.Response;
+
 @RestController
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	
+	//파일전송1
+	@RequestMapping(value = "/register1101", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> register1101() throws Exception {
+		logger.info("register1101");
+		
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			
+			in = new FileInputStream("C:\\Temp\\sample.png");
+			
+			headers.setContentType(MediaType.IMAGE_PNG);
+			
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO: handle exception
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally {
+			in.close();
+		}
+		
+		return entity;
+	}
+	
+	
+	//파일전송2
+	@RequestMapping(value = "/register1102", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> register1102() throws Exception {
+		logger.info("register1102");
+		
+		String fileName = "data.zip";
+		
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			
+			in = new FileInputStream("C:\\Temp\\" + fileName);
+			
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+		
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO: handle exception
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally {
+			in.close();
+		}
+		return entity;
+	}
 	
 	
 	//입력값 검증을 할 도메인 클래스에 @Validated를 지정한다.
